@@ -153,6 +153,10 @@ const SideBar = ({ children }: any) => {
                 {" "}
                 Оборот{" "}
               </StyledMenuItem>
+              <StyledMenuItem component={<Link to="/finance/opened" />}>
+                {" "}
+                Не/Фактурирани{" "}
+              </StyledMenuItem>
               <StyledMenuItem component={<Link to="/finance/clients" />}>
                 {" "}
                 Клиенти{" "}

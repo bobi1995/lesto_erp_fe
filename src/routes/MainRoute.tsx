@@ -5,24 +5,27 @@ import TurnOver from "../pages/Finance/TurnOver";
 import Clients from "../pages/Finance/Clients";
 import Material from "../pages/Purchase/Material";
 import Items from "../pages/Purchase/Items";
-
+import Open from "../pages/Finance/Open";
+import PrivateRoute from "./PrivateRoute";
 
 const MainRoute = () => {
   return (
-    <Router  >
+    <Router>
       <SideBar>
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/purchase/material" element={<Material />} />
           <Route path="/purchase/items" element={<Items />} />
           <Route path="/finance/clients" element={<Clients />} />
-          <Route path="/finance/turnover" element={<TurnOver />} />
-
+          <Route
+            path="/finance/turnover"
+            element={<PrivateRoute component={TurnOver} />}
+          />
+          <Route path="/finance/opened" element={<Open />} />
         </Routes>
       </SideBar>
-
     </Router>
   );
 };
 
-export default MainRoute;   
+export default MainRoute;

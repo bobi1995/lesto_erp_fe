@@ -1,11 +1,9 @@
-
-import MainRoute from './routes/MainRoute';
-import { ProSidebarProvider } from 'react-pro-sidebar';
-
+import MainRoute from "./routes/MainRoute";
+import { ProSidebarProvider } from "react-pro-sidebar";
 
 function App() {
   return (
-    <ProSidebarProvider >
+    <ProSidebarProvider>
       <MainRoute />
     </ProSidebarProvider>
   );
