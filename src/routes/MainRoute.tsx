@@ -7,6 +7,7 @@ import Material from "../pages/Purchase/Material";
 import Items from "../pages/Purchase/Items";
 import Open from "../pages/Finance/Open";
 import PrivateRoute from "./PrivateRoute";
+import Pictures from "../pages/Engineering/Pictures";
 
 const MainRoute = () => {
   return (
@@ -22,6 +23,7 @@ const MainRoute = () => {
             element={<PrivateRoute component={TurnOver} />}
           />
           <Route path="/finance/opened" element={<Open />} />
+          <Route path="/engineering/pictures" element={<Pictures />} />
         </Routes>
       </SideBar>
     </Router>

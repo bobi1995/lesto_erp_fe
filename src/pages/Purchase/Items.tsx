@@ -115,7 +115,7 @@ const Items = () => {
       >
         <TextField
           id="outlined-controlled"
-          label="Въведи материал"
+          label="Въведи артикул"
           value={search}
           onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
             setSearch(event.target.value);

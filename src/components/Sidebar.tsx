@@ -11,6 +11,8 @@ import { Typography } from "@mui/material";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useState, useEffect } from "react";
+import LoginDialog from "../pages/Login/LoginDialog";
 
 const StyledSubMenu = ({ children, label }: any) => {
   return (
@@ -47,7 +49,7 @@ const StyledMenuItem = ({ children, component }: any) => {
             verticalAlign: "middle",
             display: "inline-block",
           }}
-        />{" "}
+        />
         <Typography
           style={{
             fontSize: 14,
@@ -64,7 +66,20 @@ const StyledMenuItem = ({ children, component }: any) => {
 
 const SideBar = ({ children }: any) => {
   const { collapseSidebar } = useProSidebar();
+  const [rights, setRights] = useState<any[]>([]);
+  const [open, setOpen] = useState(true);
+  const [error, setError] = useState("");
 
+  useEffect(() => {
+    console.log("here");
+    setRights(
+      localStorage.getItem("erpRights")
+        ? localStorage.getItem("erpRights")!.split(",")
+        : []
+    );
+  }, [localStorage.getItem("erpRights")]);
+
+  console.log(rights);
   return (
     <div
       style={{
@@ -72,6 +87,8 @@ const SideBar = ({ children }: any) => {
         backgroundColor: "black",
       }}
     >
+      <LoginDialog setError={setError} open={open} setOpen={setOpen} />
+
       <Sidebar
         style={{
           position: "relative",
@@ -125,75 +142,111 @@ const SideBar = ({ children }: any) => {
               Меню
             </Typography>
           </main>
+
           <Menu>
-            <StyledSubMenu
-              label={
-                <div>
-                  <PaymentsIcon
-                    style={{
-                      fontSize: 17,
-                      verticalAlign: "middle",
-                      display: "inline-block",
-                    }}
-                  />
-                  <Typography
-                    style={{
-                      fontSize: 17,
-                      verticalAlign: "middle",
-                      display: "inline-block",
-                      marginLeft: 10,
-                    }}
-                  >
-                    Финанси
-                  </Typography>
-                </div>
-              }
-            >
-              <StyledMenuItem component={<Link to="/finance/turnover" />}>
-                {" "}
-                Оборот{" "}
-              </StyledMenuItem>
-              <StyledMenuItem component={<Link to="/finance/opened" />}>
-                {" "}
-                Не/Фактурирани{" "}
-              </StyledMenuItem>
-              <StyledMenuItem component={<Link to="/finance/clients" />}>
-                {" "}
-                Клиенти{" "}
-              </StyledMenuItem>
-            </StyledSubMenu>
-            <StyledSubMenu
-              label={
-                <div>
-                  <CreditCardIcon
-                    style={{
-                      fontSize: 17,
-                      verticalAlign: "middle",
-                      display: "inline-block",
-                    }}
-                  />
-                  <Typography
-                    style={{
-                      fontSize: 17,
-                      verticalAlign: "middle",
-                      display: "inline-block",
-                      marginLeft: 10,
-                    }}
-                  >
-                    Доставки
-                  </Typography>
-                </div>
-              }
-            >
-              <StyledMenuItem component={<Link to="/purchase/material" />}>
-                {" "}
-                Материали{" "}
-              </StyledMenuItem>
-              <StyledMenuItem component={<Link to="/purchase/items" />}>
-                {" "}
-                Артикули{" "}
-              </StyledMenuItem>
-            </StyledSubMenu>
+            {rights?.includes("1") ? (
+              <StyledSubMenu
+                label={
+                  <div>
+                    <PaymentsIcon
+                      style={{
+                        fontSize: 17,
+                        verticalAlign: "middle",
+                        display: "inline-block",
+                      }}
+                    />
+                    <Typography
+                      style={{
+                        fontSize: 17,
+                        verticalAlign: "middle",
+                        display: "inline-block",
+                        marginLeft: 10,
+                      }}
+                    >
+                      Финанси
+                    </Typography>
+                  </div>
+                }
+              >
+                <StyledMenuItem component={<Link to="/finance/turnover" />}>
+                  {" "}
+                  Оборот{" "}
+                </StyledMenuItem>
+                <StyledMenuItem component={<Link to="/finance/opened" />}>
+                  {" "}
+                  Не/Фактурирани{" "}
+                </StyledMenuItem>
+                <StyledMenuItem component={<Link to="/finance/clients" />}>
+                  {" "}
+                  Клиенти{" "}
+                </StyledMenuItem>
+              </StyledSubMenu>
+            ) : null}
+            {rights?.includes("2") ? (
+              <StyledSubMenu
+                label={
+                  <div>
+                    <CreditCardIcon
+                      style={{
+                        fontSize: 17,
+                        verticalAlign: "middle",
+                        display: "inline-block",
+                      }}
+                    />
+                    <Typography
+                      style={{
+                        fontSize: 17,
+                        verticalAlign: "middle",
+                        display: "inline-block",
+                        marginLeft: 10,
+                      }}
+                    >
+                      Доставки
+                    </Typography>
+                  </div>
+                }
+              >
+                <StyledMenuItem component={<Link to="/purchase/material" />}>
+                  {" "}
+                  Материали{" "}
+                </StyledMenuItem>
+                <StyledMenuItem component={<Link to="/purchase/items" />}>
+                  {" "}
+                  Артикули{" "}
+                </StyledMenuItem>
+              </StyledSubMenu>
+            ) : null}
+
+            {rights?.includes("3") ? (
+              <StyledSubMenu
+                label={
+                  <div>
+                    <CreditCardIcon
+                      style={{
+                        fontSize: 17,
+                        verticalAlign: "middle",
+                        display: "inline-block",
+                      }}
+                    />
+                    <Typography
+                      style={{
+                        fontSize: 17,
+                        verticalAlign: "middle",
+                        display: "inline-block",
+                        marginLeft: 10,
+                      }}
+                    >
+                      Инженери
+                    </Typography>
+                  </div>
+                }
+              >
+                <StyledMenuItem component={<Link to="/engineering/pictures" />}>
+                  {" "}
+                  SLS технология{" "}
+                </StyledMenuItem>
+              </StyledSubMenu>
+            ) : null}
           </Menu>
         </div>
       </Sidebar>

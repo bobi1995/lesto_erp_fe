@@ -1,7 +1,5 @@
 import Dialog from "@mui/material/Dialog";
-import CircularProgress from "@mui/material/CircularProgress";
-import { useEffect, useState } from "react";
-import CountUpExanple from "./CountUp";
+import { useState } from "react";
 import { Button } from "@mui/material";
 
 interface ErrorInterface {
