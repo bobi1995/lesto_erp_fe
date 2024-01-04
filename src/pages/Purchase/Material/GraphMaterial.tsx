@@ -9,7 +9,6 @@ ChartJS.register(...registerables);
 const GraphMaterial = ({ data }: any) => {
   let allQuantity = 0;
   let allSinglePrice = 0;
-
   data
     .map((el: any) => {
       allQuantity = allQuantity + parseFloat(el.Quantity);

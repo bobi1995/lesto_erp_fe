@@ -6,11 +6,22 @@ import TablePictures from "./Pictures/TablePictures";
 import { TextField, Box } from "@mui/material";
 import SearchBtn from "../../components/styled/SearchBtn";
 
+const containerStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+  fontSize: "24px",
+  fontWeight: "bold",
+  color: "#333", // Choose your desired text color
+  backgroundColor: "#f8f8f8", // Choose your desired background color
+};
 const Pictures = () => {
   const [openSls, setOpenSls] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [search, setSearch] = useState("");
+  return <div style={containerStyle}>Coming soon</div>;
 
   const fetchData = async () => {
     setLoading(true);

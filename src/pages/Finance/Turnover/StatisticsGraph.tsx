@@ -32,25 +32,12 @@ const options = {
 };
 
 const StatisticsGraph = ({ data }: { data: any }) => {
-  const sorted = data.map((el: any) => {
-    let allAmount = 0;
-    el.map((invoice: any) => {
-      if (invoice.Currency === "EUR") {
-        return (allAmount = allAmount + parseFloat(invoice.totalSum) * 1.95583);
-      } else return (allAmount = allAmount + parseFloat(invoice.totalSum));
-    });
-
-    return { allAmount, client: el[0].Customer };
-  });
-
-  sorted.sort((a: any, b: any) => b.allAmount - a.allAmount);
-
   const graphData = {
-    labels: sorted.map((el: any) => el.client),
+    labels: data.map((el: any) => el.Customer),
     datasets: [
       {
         label: "Клиенти-оборот",
-        data: sorted.map((el: any) => el.allAmount.toFixed(2)),
+        data: data.map((el: any) => el.TotalSum.toFixed(2)),
         backgroundColor: "rgba(135,211,124,0.5)",
         borderWidth: 1,
         borderColor: "rgba(30, 130, 76,1)",

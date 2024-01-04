@@ -9,35 +9,35 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const LoginDialog = ({ setError, open, setOpen }: any) => {
-  const [user, setUser] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  useEffect(() => {
-    localStorage.clear();
-  }, []);
 
   const handleClose = () => {
     setOpen(false);
   };
 
   const handleLogin = () => {
+    console.log("here");
     axios
-      .get(
-        `${process.env.REACT_APP_API_URL}login?user=${user}&password=${password}`,
+      .post(
+        `${process.env.REACT_APP_API_URL}login`,
         {
+          username,
+          password,
+        },
+        {
+          withCredentials: true,
           headers: {
-            //Authorization: "Basic " + localStorage.getItem("token"),
             "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
           },
         }
       )
       .then((response) => {
-        console.log(response.data);
-        if (response.status === 200) {
-          localStorage.setItem("erpToken", response.data.token);
-          localStorage.setItem("erpUser", response.data.username);
-          localStorage.setItem("erpRights", response.data.rights);
-          handleClose();
-        } else setError(response.data);
+        console.log(response);
+        localStorage.setItem("erpUser", response.data.username);
+        localStorage.setItem("erpRights", response.data.rights);
+        handleClose();
       })
       .catch((error) => {
         setError(error?.message);
@@ -66,8 +66,8 @@ const LoginDialog = ({ setError, open, setOpen }: any) => {
             label="Потребител"
             type="email"
             variant="outlined"
-            value={user}
-            onChange={(e: any) => setUser(e.target.value)}
+            value={username}
+            onChange={(e: any) => setUsername(e.target.value)}
           />
         </Box>
         <Box

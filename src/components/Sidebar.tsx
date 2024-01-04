@@ -71,7 +71,6 @@ const SideBar = ({ children }: any) => {
   const [error, setError] = useState("");
 
   useEffect(() => {
-    console.log("here");
     setRights(
       localStorage.getItem("erpRights")
         ? localStorage.getItem("erpRights")!.split(",")
@@ -79,7 +78,6 @@ const SideBar = ({ children }: any) => {
     );
   }, [localStorage.getItem("erpRights")]);
 
-  console.log(rights);
   return (
     <div
       style={{
@@ -210,9 +208,9 @@ const SideBar = ({ children }: any) => {
                   {" "}
                   Материали{" "}
                 </StyledMenuItem>
-                <StyledMenuItem component={<Link to="/purchase/items" />}>
+                <StyledMenuItem component={<Link to="/purchase/delivery" />}>
                   {" "}
-                  Артикули{" "}
+                  Експедиции{" "}
                 </StyledMenuItem>
               </StyledSubMenu>
             ) : null}
@@ -245,6 +243,44 @@ const SideBar = ({ children }: any) => {
                   {" "}
                   SLS технология{" "}
                 </StyledMenuItem>
+                <StyledMenuItem component={<Link to="/engineering/paint" />}>
+                  {" "}
+                  Групи боя{" "}
+                </StyledMenuItem>
+              </StyledSubMenu>
+            ) : null}
+
+            {rights?.includes("4") ? (
+              <StyledSubMenu
+                label={
+                  <div>
+                    <CreditCardIcon
+                      style={{
+                        fontSize: 17,
+                        verticalAlign: "middle",
+                        display: "inline-block",
+                      }}
+                    />
+                    <Typography
+                      style={{
+                        fontSize: 17,
+                        verticalAlign: "middle",
+                        display: "inline-block",
+                        marginLeft: 10,
+                      }}
+                    >
+                      Продажби
+                    </Typography>
+                  </div>
+                }
+              >
+                <StyledMenuItem component={<Link to="/purchase/items" />}>
+                  {" "}
+                  Артикули{" "}
+                </StyledMenuItem>
+                {/* <StyledMenuItem component={<Link to="/sales/open" />}>
+                  Отворени поръчки
+                </StyledMenuItem> */}
               </StyledSubMenu>
             ) : null}
           </Menu>

@@ -9,6 +9,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import moment from "moment";
 
 const monthOrder = [
   "януари",
@@ -50,43 +51,13 @@ const options = {
 };
 
 const MonthsGraph = ({ data }: { data: any }) => {
-  const monthlyOrders: MonthlyOrder[] = [];
-
-  for (const month of monthOrder) {
-    monthlyOrders.push({ month, total: 0 });
-  }
-
-  data.forEach((order: any) => {
-    const currency = order.Currency;
-    const totalSum = Number(order.totalSum);
-    const month = new Date(order.idat).toLocaleString("bg-BG", {
-      month: "long",
-    });
-
-    // Convert totalSum if currency is EUR
-    const convertedTotalSum =
-      currency === "EUR" ? totalSum * 1.95583 : totalSum / 1.2;
-
-    const index = monthlyOrders.findIndex((item) => item.month === month);
-
-    if (index === -1) {
-      monthlyOrders.push({ month, total: convertedTotalSum });
-    } else {
-      monthlyOrders[index].total += convertedTotalSum;
-    }
-  });
-  monthlyOrders.sort(
-    (a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month)
-  );
-
-  const result = Object.values(monthlyOrders);
-
+  console.log(data);
   const graphData = {
-    labels: result.map((el: any) => el.month),
+    labels: data.map((el: any) => monthOrder[new Date(el.Month).getMonth()]),
     datasets: [
       {
         label: "Месечен оборот",
-        data: result.map((el: any) => el.total.toFixed(2)),
+        data: data.map((el: any) => el.TotalSum.toFixed(2)),
         backgroundColor: "rgba(135,211,124,0.5)",
         borderWidth: 1,
         borderColor: "rgba(30, 130, 76,1)",

@@ -12,7 +12,7 @@ const TablePictures = ({ data }: any) => {
       id: false,
     });
   const [open, setOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(""); // New state
+  const [selectedImage, setSelectedImage] = useState("");
 
   const handleClickOpen = (imageUrl: string) => {
     setSelectedImage(imageUrl);

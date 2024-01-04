@@ -57,7 +57,7 @@ const TableMaterials = ({ sfc, setError }: any) => {
   const fetchData = async () => {
     setLoading(true);
     await axios
-      .get(`${process.env.REACT_APP_API_URL}engineering/materials?sfc=${sfc}`, {
+      .get(`${process.env.REACT_APP_API_URL}engineering?sfc=${sfc}`, {
         headers: {
           "Access-Control-Allow-Origin": "*",
           Authorization: "Basic " + localStorage.getItem("erpToken"),

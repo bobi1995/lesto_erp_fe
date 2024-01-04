@@ -9,7 +9,6 @@ const TableData = ({ data, columnTemplate }: any) => {
       id: false,
     });
 
-  console.log(data);
   return (
     <div
       style={{

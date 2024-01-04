@@ -11,21 +11,13 @@ import AuthError from "../../components/AuthError";
 const Open = () => {
   const [turnOver, setTurnOver] = useState([]);
   const [openSls, setOpenSls] = useState([]);
-  const [totalOpened, setTotalOpened] = useState(0);
-  const [totalTurnOver, setTotalTurnOver] = useState(0);
   const [loading, setLoading] = useState(false);
   const [year, setYear] = useState(new Date().getFullYear());
-  const [month, setMonth] = React.useState<string | number>(
-    // new Date().getMonth() + 1
-    "all"
-  );
+  const [month, setMonth] = React.useState<string | number>("all");
   const [error, setError] = useState("");
   const [authErr, setAuthErr] = useState(false);
 
   const fetchData = async () => {
-    await setTotalTurnOver(0);
-    await setTotalOpened(0);
-
     let date;
     let tempDate;
 
@@ -42,10 +34,10 @@ const Open = () => {
 
     await axios
       .get(
-        `${process.env.REACT_APP_API_URL}finance/turnover?from=${moment(
+        `${process.env.REACT_APP_API_URL}finance/turnover-client?from=${moment(
           date
-        ).format("yyyy-MM-D HH:mm")}&to=${moment(tempDate).format(
-          "yyyy-MM-D HH:mm"
+        ).format("yyyy-MM-DD HH:mm")}&to=${moment(tempDate).format(
+          "yyyy-MM-DD HH:mm"
         )}`,
         {
           headers: {
@@ -70,8 +62,8 @@ const Open = () => {
       .get(
         `${process.env.REACT_APP_API_URL}finance/opened?from=${moment(
           date
-        ).format("yyyy-MM-D HH:mm")}&to=${moment(tempDate).format(
-          "yyyy-MM-D HH:mm"
+        ).format("yyyy-MM-DD HH:mm")}&to=${moment(tempDate).format(
+          "yyyy-MM-DD HH:mm"
         )}`,
         {
           headers: {
@@ -106,32 +98,7 @@ const Open = () => {
     generalFetch().catch((error) => setError(error));
   }, [year, month]);
 
-  useEffect(() => {
-    calculateTotals();
-  }, [openSls, turnOver]);
-
-  const calculateTotals = async () => {
-    if (openSls && openSls.length > 0) {
-      let tempTotalSum = 0;
-      openSls.map((el: any) => {
-        if (el.Currency === "EUR") {
-          tempTotalSum = tempTotalSum + parseFloat(el.totalSum) * 1.95583;
-        } else tempTotalSum = tempTotalSum + parseFloat(el.totalSum);
-      });
-      await setTotalOpened(tempTotalSum);
-    }
-
-    if (turnOver && turnOver.length > 0) {
-      let tempTotalSum = 0;
-      turnOver.map((el: any) => {
-        if (el.Currency === "EUR") {
-          tempTotalSum = tempTotalSum + parseFloat(el.totalSum) * 1.95583;
-        } else tempTotalSum = tempTotalSum + parseFloat(el.totalSum) / 1.2;
-      });
-      await setTotalTurnOver(tempTotalSum);
-    }
-  };
-
+  console.log(openSls);
   return (
     <div
       style={{
@@ -146,7 +113,13 @@ const Open = () => {
         setMonth={setMonth}
       />
       {loading ? <DialogLoader /> : null}
-      <InvoicedGraph opened={totalOpened} invoiced={totalTurnOver} />
+      <InvoicedGraph
+        opened={openSls.reduce((sum: any, obj: any) => sum + obj.totalSum, 0)}
+        invoiced={turnOver.reduce(
+          (sum: any, obj: any) => sum + obj.TotalSum,
+          0
+        )}
+      />
       {turnOver ? <ClientsGraph data={turnOver} /> : null}
     </div>
   );

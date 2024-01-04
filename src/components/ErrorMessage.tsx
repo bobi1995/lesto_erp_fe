@@ -32,6 +32,7 @@ const ErrorMessage = ({ message, setMessage }: ErrorInterface) => {
             if (setMessage) {
               setMessage("");
             }
+            window.location.reload();
           }}
         >
           Затвори

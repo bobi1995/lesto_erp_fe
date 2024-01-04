@@ -1,7 +1,6 @@
 import React from "react";
 import { GridColDef, GridColumnVisibilityModel } from "@mui/x-data-grid";
 import CustomDataGrid from "../../../components/styled/CustomDataGrid";
-import CustomPagination from "../../../components/styled/CustomPagination";
 import { Typography } from "@mui/material";
 
 const columnTemplate = (): GridColDef[] => {

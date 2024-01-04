@@ -40,10 +40,10 @@ const TurnOver = () => {
 
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}finance/turnover?from=${moment(
+        `${process.env.REACT_APP_API_URL}finance/turnover-client?from=${moment(
           date
-        ).format("yyyy-MM-D HH:mm")}&to=${moment(tempDate).format(
-          "yyyy-MM-D HH:mm"
+        ).format("yyyy-MM-DD HH:mm")}&to=${moment(tempDate).format(
+          "yyyy-MM-DD HH:mm"
         )}`,
         {
           headers: {
@@ -72,10 +72,10 @@ const TurnOver = () => {
     const tempDate = `${year + 1}-01-01 00:00:00`;
     axios
       .get(
-        `${process.env.REACT_APP_API_URL}finance/turnover?from=${moment(
+        `${process.env.REACT_APP_API_URL}finance/turnover-months?from=${moment(
           date
-        ).format("yyyy-MM-D HH:mm")}&to=${moment(tempDate).format(
-          "yyyy-MM-D HH:mm"
+        ).format("yyyy-MM-DD HH:mm")}&to=${moment(tempDate).format(
+          "yyyy-MM-DD HH:mm"
         )}`,
         {
           headers: {

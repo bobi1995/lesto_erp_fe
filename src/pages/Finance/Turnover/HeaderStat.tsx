@@ -4,28 +4,28 @@ import numeral from "numeral";
 import StatisticsGraph from "./StatisticsGraph";
 
 const HeaderStat = ({ data }: any) => {
-  const euroInvoices = data.filter((el: any) => el.Currency === "EUR");
-  const bgnInvoices = data.filter((el: any) => el.Currency === "BGN");
-  let euroSum = 0;
-  let bgnSum = 0;
-  euroInvoices.map((el: any) => (euroSum = euroSum + parseFloat(el.totalSum)));
-  bgnInvoices.map((el: any) => (bgnSum = bgnSum + parseFloat(el.totalSum)));
+  // const euroInvoices = data.filter((el: any) => el.Currency === "EUR");
+  // const bgnInvoices = data.filter((el: any) => el.Currency === "BGN");
+  // let euroSum = 0;
+  // let bgnSum = 0;
+  // euroInvoices.map((el: any) => (euroSum = euroSum + parseFloat(el.totalSum)));
+  // bgnInvoices.map((el: any) => (bgnSum = bgnSum + parseFloat(el.totalSum)));
 
-  const totalSum = bgnSum / 1.2 + euroSum * 1.95583;
+  // const totalSum = bgnSum / 1.2 + euroSum * 1.95583;
 
-  function groupBy(objectArray: any, property: any) {
-    return objectArray.reduce(function (acc: any, obj: any) {
-      var key = obj[property];
-      if (!acc[key]) {
-        acc[key] = [];
-      }
-      acc[key].push(obj);
-      return acc;
-    }, {});
-  }
+  // function groupBy(objectArray: any, property: any) {
+  //   return objectArray.reduce(function (acc: any, obj: any) {
+  //     var key = obj[property];
+  //     if (!acc[key]) {
+  //       acc[key] = [];
+  //     }
+  //     acc[key].push(obj);
+  //     return acc;
+  //   }, {});
+  // }
 
-  const groupedByClient = groupBy(data, "Customer");
-  const toArray = Object.values(groupedByClient);
+  // const groupedByClient = groupBy(data, "Customer");
+  // const toArray = Object.values(groupedByClient);
 
   return (
     <Paper
@@ -40,7 +40,7 @@ const HeaderStat = ({ data }: any) => {
       <Typography sx={{ textAlign: "center", fontSize: 21, marginBottom: 5 }}>
         Месечна графика
       </Typography>
-      <Box
+      {/* <Box
         style={{
           display: "flex",
           justifyContent: "space-around",
@@ -68,8 +68,8 @@ const HeaderStat = ({ data }: any) => {
             *При изчисление курса на еврото е отчетен на 1.95583
           </Typography>
         </Box>
-      </Box>
-      <StatisticsGraph data={toArray} />
+      </Box> */}
+      <StatisticsGraph data={data} />
     </Paper>
   );
 };

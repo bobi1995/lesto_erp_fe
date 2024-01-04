@@ -1,24 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { TextField, Box } from "@mui/material";
 import SearchBtn from "../../../components/styled/SearchBtn";
 import DialogLoader from "../../../components/DialogLoader";
 import TableMaterial from "./TableMaterial";
 import GraphMaterial from "./GraphMaterial";
+import AuthError from "../../../components/AuthError";
 
 const Item = () => {
   const [data, setData] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(false);
+  const [authErr, setAuthErr] = useState(false);
+  const searchBtnRef = useRef<HTMLButtonElement>(null);
 
   const fetchData = async () => {
+    console.log(search);
     setLoading(true);
     axios
       .get(
         `${process.env.REACT_APP_API_URL}purchase/material?material=${search}`,
         {
           headers: {
-            Authorization: "Basic " + localStorage.getItem("erpToken"),
             "Access-Control-Allow-Origin": "*",
           },
         }
@@ -33,10 +36,27 @@ const Item = () => {
         setLoading(false);
       })
       .catch((error) => {
-        console.log(error);
+        if (error && error.response && error.response.status === 401) {
+          return setAuthErr(true);
+        }
         setLoading(false);
       });
   };
+
+  const handleKeyPress = (event: KeyboardEvent) => {
+    if (event.key === "Enter") {
+      event.preventDefault(); // Prevent the default behavior of the Enter key
+
+      searchBtnRef.current?.click();
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyPress);
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []); // Empty dependency array ensures that the effect runs only once, similar to componentDidMount
 
   return (
     <div>
@@ -59,7 +79,9 @@ const Item = () => {
             marginRight: 10,
           }}
         />
-        <SearchBtn submit={fetchData}>Търси</SearchBtn>
+        <SearchBtn reference={searchBtnRef} submit={fetchData}>
+          Търси
+        </SearchBtn>
       </Box>
       {data && data.length > 0 ? (
         <>
@@ -67,6 +89,7 @@ const Item = () => {
           <TableMaterial data={data} />
         </>
       ) : null}
+      {authErr ? <AuthError /> : null}
     </div>
   );
 };

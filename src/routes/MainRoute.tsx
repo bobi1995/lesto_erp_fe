@@ -8,6 +8,8 @@ import Items from "../pages/Purchase/Items";
 import Open from "../pages/Finance/Open";
 import PrivateRoute from "./PrivateRoute";
 import Pictures from "../pages/Engineering/Pictures";
+import PaintGroup from "../pages/Engineering/PaintGroup";
+import Delivery from "../pages/Purchase/Delivery";
 
 const MainRoute = () => {
   return (
@@ -24,6 +26,9 @@ const MainRoute = () => {
           />
           <Route path="/finance/opened" element={<Open />} />
           <Route path="/engineering/pictures" element={<Pictures />} />
+          {/* <Route path="/sales/open" element={<OpenSales />} /> */}
+          <Route path="/engineering/paint" element={<PaintGroup />} />
+          <Route path="/purchase/delivery" element={<Delivery />} />
         </Routes>
       </SideBar>
     </Router>
